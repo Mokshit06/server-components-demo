@@ -1,4 +1,4 @@
-import '__routes__';
+import '__client_components__';
 
 interface ModuleData {
   chunks: string[];

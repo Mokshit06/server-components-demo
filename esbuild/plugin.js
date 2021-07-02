@@ -62,14 +62,14 @@ const reactServerPlugin = (options) => {
     setup(build) {
       build.initialOptions.metafile = true;
 
-      build.onResolve({filter: /^__routes__$/}, (args) => {
+      build.onResolve({filter: /^'__client_components__$/}, (args) => {
         return {
-          namespace: 'route-map',
+          namespace: 'client-components',
           path: args.path,
         };
       });
 
-      build.onLoad({filter: /.*/, namespace: 'route-map'}, async (args) => {
+      build.onLoad({filter: /.*/, namespace: 'client-components'}, async () => {
         const files = globby.sync('src/**/*.client.js', {});
 
         return {
