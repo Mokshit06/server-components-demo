@@ -6,6 +6,7 @@
  *
  */
 
+import React from 'react';
 import TextWithMarkdown from './TextWithMarkdown';
 
 export default function NotePreview({body}) {

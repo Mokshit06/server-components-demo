@@ -6,7 +6,7 @@
  *
  */
 
-import {useTransition} from 'react';
+import React, {useTransition} from 'react';
 
 import {useLocation} from './LocationContext.client';
 

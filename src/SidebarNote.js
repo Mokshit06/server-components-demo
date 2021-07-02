@@ -6,6 +6,7 @@
  *
  */
 
+import React from 'react';
 import {format, isToday} from 'date-fns';
 import excerpts from 'excerpts';
 import marked from 'marked';

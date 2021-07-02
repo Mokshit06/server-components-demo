@@ -1,37 +1,39 @@
-/**
- * Copyright (c) Facebook, Inc. and its affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
 'use strict';
 
-const register = require('react-server-dom-webpack/node-register');
-register();
-const babelRegister = require('@babel/register');
+// const register = require('react-server-dom-webpack/node-register');
+// register();
+// const babelRegister = require('@babel/register');
 
-babelRegister({
-  ignore: [/[\\\/](build|server|node_modules)[\\\/]/],
-  presets: [['react-app', {runtime: 'automatic'}]],
-  plugins: ['@babel/transform-modules-commonjs'],
-});
+// babelRegister({
+//   ignore: [/[\\\/](build|server|node_modules)[\\\/]/],
+//   presets: [['react-app', {runtime: 'automatic'}]],
+//   plugins: ['@babel/transform-modules-commonjs'],
+// });
+
+const register = require('../esbuild/node-register');
+register();
 
 const express = require('express');
 const compress = require('compression');
-const {readFileSync} = require('fs');
+const {promises: fs} = require('fs');
 const {unlink, writeFile} = require('fs').promises;
-const {pipeToNodeWritable} = require('react-server-dom-webpack/writer');
+// const {pipeToNodeWritable} = require('react-server-dom-webpack/writer');
+const {pipeToNodeWritable} = require('../esbuild/writer');
+const {register: esbuildRegister} = require('esbuild-register/dist/node');
 const path = require('path');
 const {Pool} = require('pg');
 const React = require('react');
+
+esbuildRegister({
+  loader: 'jsx',
+});
+
 const ReactApp = require('../src/App.server').default;
 
 // Don't keep credentials in the source tree in a real app!
 const pool = new Pool(require('../credentials'));
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(compress());
@@ -73,10 +75,9 @@ function handleErrors(fn) {
 
 app.get(
   '/',
-  handleErrors(async function(_req, res) {
-    await waitForWebpack();
-    const html = readFileSync(
-      path.resolve(__dirname, '../build/index.html'),
+  handleErrors(async (_req, res) => {
+    const html = await fs.readFile(
+      path.resolve(__dirname, '../public/index.html'),
       'utf8'
     );
     // Note: this is sending an empty HTML shell, like a client-side-only app.
@@ -87,8 +88,7 @@ app.get(
 );
 
 async function renderReactTree(res, props) {
-  await waitForWebpack();
-  const manifest = readFileSync(
+  const manifest = await fs.readFile(
     path.resolve(__dirname, '../build/react-client-manifest.json'),
     'utf8'
   );
@@ -187,16 +187,16 @@ app.get('/sleep/:ms', function(req, res) {
 app.use(express.static('build'));
 app.use(express.static('public'));
 
-async function waitForWebpack() {
-  while (true) {
-    try {
-      readFileSync(path.resolve(__dirname, '../build/index.html'));
-      return;
-    } catch (err) {
-      console.log(
-        'Could not find webpack build output. Will retry in a second...'
-      );
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-    }
-  }
-}
+// async function waitForWebpack() {
+//   while (true) {
+//     try {
+//       readFileSync(path.resolve(__dirname, '../build/index.html'));
+//       return;
+//     } catch (err) {
+//       console.log(
+//         'Could not find webpack build output. Will retry in a second...'
+//       );
+//       await new Promise((resolve) => setTimeout(resolve, 1000));
+//     }
+//   }
+// }

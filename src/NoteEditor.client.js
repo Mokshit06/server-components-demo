@@ -6,8 +6,8 @@
  *
  */
 
-import {useState, useTransition} from 'react';
-import {createFromReadableStream} from 'react-server-dom-webpack';
+import React, {useState, useTransition} from 'react';
+import {createFromReadableStream} from '../esbuild';
 
 import NotePreview from './NotePreview';
 import {useRefresh} from './Cache.client';

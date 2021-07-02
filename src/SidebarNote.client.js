@@ -6,7 +6,7 @@
  *
  */
 
-import {useState, useRef, useEffect, useTransition} from 'react';
+import React, {useState, useRef, useEffect, useTransition} from 'react';
 
 import {useLocation} from './LocationContext.client';
 

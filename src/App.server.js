@@ -6,7 +6,7 @@
  *
  */
 
-import {Suspense} from 'react';
+import React, {Suspense} from 'react';
 
 import Note from './Note.server';
 import NoteList from './NoteList.server';

@@ -6,7 +6,7 @@
  *
  */
 
-import {useState, Suspense} from 'react';
+import React, {useState, Suspense} from 'react';
 import {ErrorBoundary} from 'react-error-boundary';
 
 import {useServerResponse} from './Cache.client';
@@ -29,6 +29,7 @@ function Content() {
     searchText: '',
   });
   const response = useServerResponse(location);
+
   return (
     <LocationContext.Provider value={[location, setLocation]}>
       {response.readRoot()}

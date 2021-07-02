@@ -32,7 +32,7 @@ You will need to have nodejs >=14.9.0 in order to run this demo. [Node 14 LTS](h
 
 (Or `npm run start:prod` for a production build.)
 
-Then open http://localhost:4000.
+Then open http://localhost:3000.
 
 The app won't work until you set up the database, as described below.
 
@@ -114,7 +114,7 @@ This demo is built on top of our Webpack plugin, but this is not how we envision
 - Search for any title. With the search text still in the search input, create a new note with a title matching the search text. What happens?
 - Search while on Slow 3G, observe the inline loading indicator.
 - Switch between two notes back and forth. Observe we don't send new responses next time we switch them again.
-- Uncomment the `fetch('http://localhost:4000/sleep/....')` call in `Note.server.js` or `NoteList.server.js` to introduce an artificial delay and trigger Suspense.
+- Uncomment the `fetch('http://localhost:3000/sleep/....')` call in `Note.server.js` or `NoteList.server.js` to introduce an artificial delay and trigger Suspense.
   - If you only uncomment it in `Note.server.js`, you'll see the fallback every time you open a note.
   - If you only uncomment it in `NoteList.server.js`, you'll see the list fallback on first page load.
   - If you uncomment it in both, it won't be very interesting because we have nothing new to show until they both respond.

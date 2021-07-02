@@ -6,6 +6,8 @@
  *
  */
 
+import React from 'react';
+
 export default function NoteListSkeleton() {
   return (
     <div>

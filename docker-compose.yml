@@ -1,4 +1,4 @@
-version: "3.8"
+version: '3.8'
 services:
   postgres:
     image: postgres:13
@@ -18,10 +18,10 @@ services:
     depends_on:
       - postgres
     ports:
-      - '4000:4000'
+      - '3000:3000'
     environment:
       DB_HOST: postgres
-      PORT: 4000
+      PORT: 3000
     volumes:
       - ./notes:/opt/notes-app/notes
       - ./public:/opt/notes-app/public

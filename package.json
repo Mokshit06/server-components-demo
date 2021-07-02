@@ -9,6 +9,7 @@
   "dependencies": {
     "@babel/core": "7.12.3",
     "@babel/register": "^7.12.1",
+    "acorn": "^8.4.1",
     "babel-loader": "8.1.0",
     "babel-preset-react-app": "10.0.0",
     "compression": "^1.7.4",
@@ -16,6 +17,7 @@
     "date-fns": "^2.16.1",
     "excerpts": "^0.0.3",
     "express": "^4.17.1",
+    "globby": "^11.0.4",
     "html-webpack-plugin": "4.5.0",
     "marked": "^1.2.5",
     "nodemon": "^2.0.6",
@@ -34,16 +36,20 @@
     "webpack-cli": "^4.2.0"
   },
   "devDependencies": {
+    "@types/express": "^4.17.12",
+    "@types/react": "^17.0.13",
     "cross-env": "^7.0.3",
+    "esbuild": "^0.12.8",
+    "esbuild-register": "^2.6.0",
     "prettier": "1.19.1"
   },
   "scripts": {
     "start": "concurrently \"npm run server:dev\" \"npm run bundler:dev\"",
     "start:prod": "concurrently \"npm run server:prod\" \"npm run bundler:prod\"",
-    "server:dev": "cross-env NODE_ENV=development nodemon -- --conditions=react-server server",
-    "server:prod": "cross-env NODE_ENV=production nodemon -- --conditions=react-server server",
-    "bundler:dev": "cross-env NODE_ENV=development nodemon -- scripts/build.js",
-    "bundler:prod": "cross-env NODE_ENV=production nodemon -- scripts/build.js",
+    "server:dev": "cross-env NODE_ENV=development nodemon --watch src -- --conditions=react-server server",
+    "server:prod": "cross-env NODE_ENV=production nodemon --watch src -- --conditions=react-server server",
+    "bundler:dev": "cross-env NODE_ENV=development node scripts/build.js",
+    "bundler:prod": "cross-env NODE_ENV=production node scripts/build.js",
     "prettier": "prettier --write **/*.js",
     "seed": "node ./scripts/seed.js"
   },
