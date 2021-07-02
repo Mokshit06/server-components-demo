@@ -1,4 +1,3 @@
-// @ts-check
 const React = require('react');
 
 const ReactSharedInternals =
@@ -1020,11 +1019,11 @@ function createDrainHandler(destination, request) {
   };
 }
 
-function pipeToNodeWritable(model, destination, webpackMap, options) {
+function pipeToNodeWritable(model, destination, esbuildMap, options) {
   var request = createRequest(
     model,
     destination,
-    webpackMap,
+    esbuildMap,
     options ? options.onError : undefined
   );
   destination.on('drain', createDrainHandler(destination, request));
